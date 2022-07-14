@@ -8,7 +8,7 @@ auto get_import_address( IMAGE image, const char* name ) -> uintptr_t
 
     const auto import_descriptor = reinterpret_cast< IMAGE_IMPORT_DESCRIPTOR * >( image.base + nt->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress );
 
-    for ( unsigned int i = 0; import_descriptor[i].Characteristics != 0; i++ )
+    for ( unsigned int i = 0; import_descriptor[i].Characteristics; i++ )
     {
         auto first_thunk = reinterpret_cast< IMAGE_THUNK_DATA*> ( image.base + import_descriptor[i].FirstThunk );
         auto original_first_thunk = reinterpret_cast< IMAGE_THUNK_DATA* > ( image.base + import_descriptor[i].OriginalFirstThunk );
